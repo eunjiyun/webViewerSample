@@ -185,9 +185,12 @@ async function init() {
   gl.useProgram(program);
 
   // OBJ 로드
-  const objRes = await fetch('models/transmission/Transmission.obj');
+  //const objRes = await fetch('models/transmission/Transmission.obj');
+  //const objRes = await fetch('D:\data/data5_0_1_0.inp');
+   const objRes = await fetch('models/abaqus/data5_0_1_0.inp');
   const objText = await objRes.text();
-  const geo = parseOBJ(objText);
+  //const geo = parseOBJ(objText);
+  const geo = parseINP(objText);
 
   // 구조체로 정리
   const geometry = {
