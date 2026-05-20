@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build output
+dist/
+build/
+out/
+*.min.js
+*.min.css
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Cache
+.cache/
+.parcel-cache/
+.tmp/
+
+# Claude / AI tools
+.claude/
+
+# ========================
+# WebGL / 3D 에셋 (대용량 파일 - 필요시 주석 해제)
+# ========================
+# *.obj
+# *.inp
+# *.glb
+# *.gltf
+# *.bin
+# *.mtl
