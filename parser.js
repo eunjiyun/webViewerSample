@@ -105,7 +105,7 @@
 
 
 // ── Abaqus .inp 파서 ─────────────────────────────
-function parseINP(text) {
+export function parseINP(text) {
   const nodeMap = new Map(); // id -> [x, y, z]
   const positions = [];
 
@@ -139,7 +139,8 @@ function parseINP(text) {
     const line = raw.trim();
 
     // 빈 줄 or 주석 스킵
-    if (!line || line.startsWith('**')) continue;
+    if (!line || line.startsWith('**')) 
+      continue;
 
     // ── 섹션 키워드 감지 ──
     if (line.startsWith('*')) {

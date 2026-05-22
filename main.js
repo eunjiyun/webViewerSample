@@ -3,14 +3,15 @@
 
 
 
+// main.js 상단
+ import { parseINP } from './parser.js';
+// import { getMVP, initCamera } from './camera.js';
+// import { initRenderer, render } from './renderer.js';
 
 
+import {  perspective, getMVP, lookAt, mulMat4 } from './camera.js';
 
-
-
-
-
-
+import { render } from './renderer.js';
 
 // <시뮬레이션 뷰어>
 //힘들 가함(boundaryConditions)
@@ -161,6 +162,7 @@ function createShader(gl, type, source) {
 
   return shader;
 }
+
 
 
 
@@ -317,18 +319,25 @@ async function init() {
   //프로젝션 행렬은
   //멀리 있을수록 작게 보임
 
-  //두 개 합치기
-  const mvp = mulMat4(proj, view); //두 행렬 곱하기
+  // //두 개 합치기
+  // const mvp = mulMat4(proj, view); //두 행렬 곱하기
 
-  const uMVP = gl.getUniformLocation(program, 'uMVP'); //셰이더에 전달
-  gl.uniformMatrix4fv(uMVP, false, mvp);
+  // const uMVP = gl.getUniformLocation(program, 'uMVP'); //셰이더에 전달
+  // gl.uniformMatrix4fv(uMVP, false, mvp);
 
   // 그리기
   gl.enable(gl.DEPTH_TEST); //앞 뒤 가림 처리 On 
-  gl.clearColor(0.1, 0.1, 0.1, 1);
-  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); //화면 초기화
-  gl.drawArrays(gl.TRIANGLES, 0, geo.vertexCount);  // 삼각형으로 그리기
+
+  function loop() {
+    const mvp = getMVP(canvas);
+    //mvp = mulMat4(proj, view); //두 행렬 곱하기
+    render(geo, gl, program, mvp);
+    requestAnimationFrame(loop);
+  }
+  loop();
+
 }
+
 
 
 

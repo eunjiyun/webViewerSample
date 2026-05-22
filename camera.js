@@ -1,10 +1,23 @@
 //MVP 행렬, 마우스 인터랙션
 
 
+// camera.js
+let eye = [0, 0, 4];
+let center = [0, 0, 0];
+
+export function getMVP(canvas) {
+  const aspect = canvas.width / canvas.height;
+  const proj = perspective(Math.PI / 4, aspect, 0.1, 1000);
+  const view = lookAt(eye, center);
+  return mulMat4(proj, view);
+}
+
+
+
 //행렬 함수들
 ////이 세 함수가 없으면 모델이 화면에 아예 안 보이거나 이상하게 보임
 
-function perspective(fov, aspect, near, far) {
+export function perspective(fov, aspect, near, far) {
   const f = 1 / Math.tan(fov / 2);
   const m = new Float32Array(16);
   m[0] = f / aspect;
@@ -17,7 +30,7 @@ function perspective(fov, aspect, near, far) {
 
 
 //카메라를 eye 위치에 놓고 center를 바라보게 설정. 지금 eye 0 0 4 니까 Z축 4 위치에서 원점을 보고 있음
-function lookAt(eye, center) {
+export function lookAt(eye, center) {
   const up = [0, 1, 0];
   let fx = center[0] - eye[0], fy = center[1] - eye[1], fz = center[2] - eye[2];
   let fl = Math.hypot(fx, fy, fz);
@@ -40,7 +53,7 @@ function lookAt(eye, center) {
 //4x4 행렬 두 개 곱하기. 
 //proj x view = MVP. 이걸 셰이더에 넘기면 GPU가 모든 꼭짓점을 자동으로 올바른 화면 위치로 변환해줌.
 
-function mulMat4(a, b) {
+export function mulMat4(a, b) {
   const out = new Float32Array(16);
   for (let i = 0; i < 4; i++)
     for (let j = 0; j < 4; j++) {
